@@ -1,0 +1,34 @@
+#content-container{
+    background-color: #dce2fa;
+    margin-top: 400px;
+    width: 80%;
+    margin: 0 auto;
+    flex: 1;
+   
+    
+}
+
+#content{
+   
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    padding: 1rem;
+   
+    
+}
+
+#collaborators{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+#about-project{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    padding: 1rem;
+}
+
