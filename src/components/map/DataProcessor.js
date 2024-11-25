@@ -3,7 +3,7 @@ export const processMunicipiosData = (municipios) => {
         ...row,
         "% moradores cobertos": row["% moradores cobertos"]
             ? parseFloat(row["% moradores cobertos"].replace("%", "").replace(",", ".").trim()) || 0
-            : 0, // Fallback para 0 caso o valor seja inválido ou ausente
+            : 0, 
         "Código IBGE": String(row["Código IBGE"]?.trim()),
     }));
 };

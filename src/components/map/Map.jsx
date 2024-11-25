@@ -41,7 +41,7 @@ const MapComponent = () => {
         setMunicipiosData(processedData);
       })
       .catch((error) => {
-        console.error("Erro ao carregar o CSV:", error);
+        console.error("Erro ao carregar o CSV: ", error);
       });
   }, []);
 
