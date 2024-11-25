@@ -1,12 +1,13 @@
 export const processMunicipiosData = (municipios) => {
     return municipios.map((row) => ({
         ...row,
-        "% moradores cobertos": parseFloat(
-            row["% moradores cobertos"]?.replace("%", "").replace(",",".") || "0"
-        ),
+        "% moradores cobertos": row["% moradores cobertos"]
+            ? parseFloat(row["% moradores cobertos"].replace("%", "").replace(",", ".").trim()) || 0
+            : 0, // Fallback para 0 caso o valor seja inválido ou ausente
         "Código IBGE": String(row["Código IBGE"]?.trim()),
     }));
 };
+
 
 export const groupOperadorasData = (operadoras) => {
     return operadoras.reduce((acc, row) => {
