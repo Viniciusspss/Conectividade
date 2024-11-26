@@ -11,20 +11,6 @@
     z-index: 1000;
 }
 
-.leaflet-marker-icon {
-    border-radius: 50%;
-    border: 2px solid #007bff; 
-    background-color: #ff6600; 
-    width: 35px; 
-    height: 35px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-}
-
-.leaflet-marker-icon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
 .leaflet-control-zoom {
     z-index: 1001;
 }
