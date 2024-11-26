@@ -3,7 +3,18 @@ import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import Papa from "papaparse";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
-import { processMunicipiosData } from "./DataProcessor";
+
+export const processMunicipiosData = (municipios) => {
+  return municipios.map((row) => {
+    const porcentagemRaw = row["% moradores cobertos"]?.replace("%", "").replace(",", ".") || "0";
+    const porcentagem = parseFloat(porcentagemRaw);
+    return {
+      ...row,
+      "% moradores cobertos": porcentagem,
+      "Código IBGE": row["Código IBGE"] ? String(row["Código IBGE"].trim()) : "Desconhecido",
+    };
+  });
+};
 
 const MapComponent = () => {
   const [geoData, setGeoData] = useState(null);
@@ -12,24 +23,33 @@ const MapComponent = () => {
   const [selectedMunicipio, setSelectedMunicipio] = useState(null);
   const [selectedPorcentagem, setSelectedPorcentagem] = useState(null);
 
+
   useEffect(() => {
     fetch("/geojs-pb-mun.json")
       .then((response) => response.json())
       .then((data) => {
-        setGeoData(data);
+
+        const cleanedGeoData = {
+          ...data,
+          features: data.features.map((feature) => ({
+            ...feature,
+            id: String(feature.id).trim(), // Limpar ID do GeoJSON
+          })),
+        };
+        setGeoData(cleanedGeoData);
       })
       .catch((error) => {
         console.error("Erro ao carregar os dados geojson:", error);
       });
   }, []);
 
+  // Carregar CSV
   useEffect(() => {
     fetch("/parahybaCities.csv")
       .then((response) => response.text())
       .then((csvText) => {
         const parsedData = Papa.parse(csvText, { header: true }).data;
         const processedData = processMunicipiosData(parsedData);
-        console.log("Dados processados do CSV:", processedData);
         setMunicipiosData(processedData);
       })
       .catch((error) => {
@@ -37,16 +57,19 @@ const MapComponent = () => {
       });
   }, []);
 
+  // Mesclar GeoJSON com dados do CSV
   useEffect(() => {
     if (geoData && municipiosData) {
+
       const mergedData = {
         ...geoData,
         features: geoData.features.map((feature) => {
+          const municipioId = feature.properties?.id || feature.id;
           const municipioData = municipiosData.find(
-            (row) => row["Código IBGE"] === String(feature.id)
+            (row) => row["Código IBGE"] === String(municipioId)
           );
-
-          const porcentagem = municipioData?.["% moradores cobertos"];
+  
+          const porcentagem = municipioData?.["% moradores cobertos"] || "N/A";
 
           return {
             ...feature,
@@ -61,7 +84,7 @@ const MapComponent = () => {
       setMergedGeoData(mergedData);
     }
   }, [geoData, municipiosData]);
-
+  
   const onEachFeature = (feature, layer) => {
     layer.on({
       click: () => {
@@ -69,7 +92,7 @@ const MapComponent = () => {
           feature.properties?.NOME || feature.properties?.name || "Nome não disponível";
         const porcentagem =
           feature.properties?.porcentagem !== undefined
-            ? feature.properties.porcentagem
+            ? `${feature.properties.porcentagem}%`
             : "Informação não disponível";
 
         setSelectedMunicipio(nomeMunicipio);
@@ -78,20 +101,17 @@ const MapComponent = () => {
     });
   };
 
+
   const renderPopup = () => {
     if (!selectedMunicipio) return null;
     return (
       <div className="info-popup">
         <h3>Município: {selectedMunicipio}</h3>
-        <p>
-          Porcentagem de moradores cobertos:{" "}
-          {selectedPorcentagem !== "Informação não disponível"
-            ? `${selectedPorcentagem}%`
-            : selectedPorcentagem}
-        </p>
+        <p>Porcentagem de moradores cobertos: {selectedPorcentagem}</p>
       </div>
     );
   };
+
 
   if (!mergedGeoData) {
     return <div>Carregando mapa...</div>;
