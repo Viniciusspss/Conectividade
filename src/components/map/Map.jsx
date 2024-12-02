@@ -21,8 +21,6 @@ const MapComponent = () => {
   const [geoData, setGeoData] = useState(null);
   const [municipiosData, setMunicipiosData] = useState(null);
   const [mergedGeoData, setMergedGeoData] = useState(null);
-  const [selectedMunicipio, setSelectedMunicipio] = useState(null);
-  const [selectedPorcentagem, setSelectedPorcentagem] = useState(null);
 
   useEffect(() => {
     fetch("/geojs-pb-mun.json")
@@ -79,7 +77,7 @@ const MapComponent = () => {
 
   const onEachFeature = (feature, layer) => {
     layer.on({
-      click: () => {
+      click: (e) => {
         const nomeMunicipio =
           feature.properties?.NOME || feature.properties?.name || "Nome não disponível";
         const porcentagem =
@@ -87,8 +85,15 @@ const MapComponent = () => {
             ? `${feature.properties.porcentagem}%`
             : "Informação não disponível";
 
-        setSelectedMunicipio(nomeMunicipio);
-        setSelectedPorcentagem(porcentagem);
+        const popupContent = `
+          <div>
+            <h3>Município: ${nomeMunicipio}</h3>
+            <p>Porcentagem de moradores cobertos: ${porcentagem}</p>
+          </div>
+        `;
+
+        
+        layer.bindPopup(popupContent).openPopup(e.latlng);
       },
     });
   };
@@ -125,7 +130,7 @@ const MapComponent = () => {
         `<i style="background:${getColor(grades[i] + 1)}"></i> ${grades[i]}${grades[i + 1] ? `–${grades[i + 1]}` : "+"}<br>`
       );
     }
-
+    console.log("Adicionando legenda ao mapa...");
     const legend = L.control({ position: "bottomright" });
     legend.onAdd = function () {
       const div = L.DomUtil.create("div", "info legend");
@@ -135,20 +140,11 @@ const MapComponent = () => {
     legend.addTo(map);
   };
 
-  const renderPopup = () => {
-    if (!selectedMunicipio) return null;
-    return (
-      <div className="info-popup">
-        <h3>Município: {selectedMunicipio}</h3>
-        <p>Porcentagem de moradores cobertos: {selectedPorcentagem}</p>
-      </div>
-    );
-  };
-
   if (!mergedGeoData) {
     return <div>Carregando mapa...</div>;
   }
 
+  
   return (
     <div>
       <h1>MAPA CONECTIVIDADE</h1>
@@ -157,7 +153,7 @@ const MapComponent = () => {
         zoom={8}
         style={{ height: "100vh", width: "100%" }}
         whenCreated={(map) => {
-          addLegend(map); // Adiciona a legenda quando o mapa for criado
+          addLegend(map);
         }}
       >
         <TileLayer
@@ -166,7 +162,6 @@ const MapComponent = () => {
         />
         <GeoJSON data={mergedGeoData} style={style} onEachFeature={onEachFeature} />
       </MapContainer>
-      {renderPopup()}
     </div>
   );
 };
