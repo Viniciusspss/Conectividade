@@ -1,34 +1,50 @@
-import './Content.css'
+import "./Content.css";
 
 const Content = () => {
   return (
-    
-    <div id='content-container'>
+    <div id="content-container">
+      <div id="content">
+        <h1>A Importância da Conectividade na Sociedade e os Desafios na Paraíba</h1>
 
-        <div id='content'>
+        <p>
+          A conectividade é a capacidade de estabelecer uma conexão entre
+          diferentes sistemas, dispositivos, redes ou pessoas, por meio de
+          internet. Ela facilita o acesso a dados, comunicação e interação em
+          tempo real de forma rápida e eficiente. Sendo assim, a conectividade é
+          a base para o nosso dia a dia, ajudando nos mínimos detalhes da
+          rotina. Com isso, vemos que sua importância é colossal, pois conecta
+          pessoas de diferentes lugares e é essencial para diversas áreas de
+          emprego, como: saúde, educação, comércio, segurança pública, entre
+          outros. Além disso, a conectividade mantém a sociedade informada e
+          proporciona inclusão social, mostrando cada vez mais como é
+          necessária. <br /><br /> 
+          
+          O mundo é globalizado e conectado, tudo depende de
+          internet. Não poder pagar um pix, não poder pesquisar cantos
+          desejados, não poder se comunicar e não ter acesso a informação são
+          poucos exemplos para a imensidão dos impactos que a falta de
+          conectivadade trás. Ter acesso a internet não é luxo, é o mínimo.
+          Mínimo que muitos brasileiros nem se quer chegaram a ter acesso. Os
+          anos de 2020 a 2022 evidenciou a importância da conectivadade para os
+          brasileiros quando 100% das aulas se tornaram online e muitos alunos
+          ficaram sem educação pública pois não tinham acesso. Falta de
+          conectivadade é urgente e significa desconexão com a sociedade. <br /><br /> 
+          
+          Visto
+          que a região da Paraíba possui localidades com pouca ou nenhuma
+          conectividade, é essencial adotar medidas para superar esse desafio.
+          Uma solução importante é a ampliação da infraestrutura, com a
+          instalação de antenas em áreas remotas. Além disso, tecnologias como
+          internet via satélite e redes móveis 4G ou 5G podem atender locais de
+          difícil acesso. Com investimentos estratégicos, é possível promover
+          inclusão digital e impulsionar o desenvolvimento em todo o estado. Por
+          fim, parcerias público-privadas podem acelerar a implementação dessas
+          soluções, reduzindo custos e ampliando o seu alcance.
+        </p>
+      </div>
 
-        <h1>TÓPICO 1</h1>
-
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi fugiat officia quibusdam qui sunt nesciunt pariatur non iure, aut aliquam accusamus saepe quia ad? Quasi magni veritatis assumenda nemo neque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores nostrum dicta culpa impedit obcaecati consequuntur dolorum? Laboriosam, ea? Perferendis, consectetur alias. Assumenda iste voluptates officiis amet quos porro quibusdam reiciendis.</p>
-        
-        </div>
-
-        <div id='about-project'>
-          <h1>SOBRE</h1>
-
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum tempore facere quam dolore repellat recusandae tempora quaerat mollitia, corrupti quia cupiditate rerum nostrum illo ipsum culpa dicta aliquid quis aspernatur.
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus facilis, enim fuga delectus possimus omnis sapiente tempore officia, provident necessitatibus exercitationem perspiciatis alias vitae corporis, voluptatibus autem. Consectetur, eligendi reiciendis.
-          </p>
-        </div>
-
-        <div id='collaborators'>
-            <h1>PARTICIPANTES</h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas, incidunt ullam! Odit, iusto dolore deserunt asperiores tempore provident nostrum nobis explicabo autem facere, ut eaque perspiciatis dicta dignissimos officiis laborum!</p>
-        </div>
-    
     </div>
+  );
+};
 
-  )
-}
-
-export default Content
+export default Content;

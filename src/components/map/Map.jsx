@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, useMap } from "react-leaflet";
 import Papa from "papaparse";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
@@ -15,6 +15,47 @@ export const processMunicipiosData = (municipios) => {
       "Código IBGE": row["Código IBGE"] ? String(row["Código IBGE"].trim()) : "Desconhecido",
     };
   });
+};
+
+const Legend = () => {
+  const map = useMap(); 
+  useEffect(() => {
+    const legend = L.control({ position: "bottomright" });
+
+    legend.onAdd = function () {
+      const div = L.DomUtil.create("div", "info legend");
+      const grades = [0, 20, 40, 60, 80];
+    
+
+      for (let i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+          '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+          grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] : "+") + "<br>";
+      }
+
+      return div;
+    };
+
+    legend.addTo(map); 
+
+    return () => {
+      map.removeControl(legend); 
+    };
+  }, [map]);
+
+  const getColor = (value) => {
+    return value >= 80
+      ? "#225ea8"
+      : value >= 60
+      ? "#41b6c4"
+      : value >= 40
+      ? "#a1dab4"
+      : value >= 20
+      ? "#ffffcc"
+      : "gray";
+  };
+
+  return null;
 };
 
 const MapComponent = () => {
@@ -92,7 +133,6 @@ const MapComponent = () => {
           </div>
         `;
 
-        
         layer.bindPopup(popupContent).openPopup(e.latlng);
       },
     });
@@ -121,46 +161,30 @@ const MapComponent = () => {
     };
   };
 
-  const addLegend = (map) => {
-    const grades = [0, 20, 40, 60, 80];
-    const labels = [];
-
-    for (let i = 0; i < grades.length; i++) {
-      labels.push(
-        `<i style="background:${getColor(grades[i] + 1)}"></i> ${grades[i]}${grades[i + 1] ? `–${grades[i + 1]}` : "+"}<br>`
-      );
-    }
-    console.log("Adicionando legenda ao mapa...");
-    const legend = L.control({ position: "bottomright" });
-    legend.onAdd = function () {
-      const div = L.DomUtil.create("div", "info legend");
-      div.innerHTML = labels.join("");
-      return div;
-    };
-    legend.addTo(map);
-  };
-
   if (!mergedGeoData) {
     return <div>Carregando mapa...</div>;
   }
 
-  
   return (
     <div>
-      <h1>MAPA CONECTIVIDADE</h1>
+      <div id="text-map">
+        <h1 id="title">Mapa de Cidades e seus Níveis de Conectividade</h1>
+        <hr />
+        <p id="Date-hour">publicado: data e hora, ultima modificação: data e hora da modificação</p>
+        <hr />
+      </div>
+
       <MapContainer
         center={[-7.1, -38.2]}
         zoom={8}
         style={{ height: "100vh", width: "100%" }}
-        whenCreated={(map) => {
-          addLegend(map);
-        }}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>"
         />
         <GeoJSON data={mergedGeoData} style={style} onEachFeature={onEachFeature} />
+        <Legend /> {/* Componente para a legenda */}
       </MapContainer>
     </div>
   );

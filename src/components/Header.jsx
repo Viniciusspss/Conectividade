@@ -1,6 +1,14 @@
 import './Header.css'
 
 const Header = () => {
+  const scrollToContato = () => {
+    const contatoSection = document.getElementById('contato');
+    contatoSection.scrollIntoView({ behavior: 'smooth' });
+  }
+  const scrollToSobre = () => {
+    const contatoSection = document.getElementById('content');
+    contatoSection.scrollIntoView({ behavior: 'smooth' });
+  }
   return (
     <div className='header'>
 
@@ -11,9 +19,8 @@ const Header = () => {
           <h2>PROJETO CONECTIVIDADE</h2>
 
           <ul>
-            <li>PARTICIPANTES</li>
-            <li>SOBRE</li>
-            <li>CONTATO</li>
+            <li onClick={scrollToSobre}>SOBRE</li>
+            <li onClick={scrollToContato}>CONTATO</li>
           </ul>
         </nav>
     </div>

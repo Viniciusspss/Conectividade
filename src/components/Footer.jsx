@@ -5,11 +5,11 @@ const Footer = () => {
     <div id='footer-container'>
 
       <div id='img'>
-        <img src="" alt="" />
+        <img src="img/unifacisa-logo.png" alt="" />
       </div>
       
-      <div id='nav-footer'>
-        <h4>CONTATOS</h4>
+      <div id='contato'>
+        <h4>CONTATO</h4>
 
         <p>(83)98810-9596 | (83)9960-49805</p>
         <img src="" alt="" id='github-icon'/>
