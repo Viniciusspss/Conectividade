@@ -29,3 +29,23 @@
     font-weight: bold;
 }
 
+@media (max-width: 768px) {
+    #navbar{
+        padding: 1rem 1rem;
+        margin: 0px 10px;
+    }
+    #navbar h2 {
+       font-size: small;
+    }
+
+}
+
+@media (max-width: 480px) {
+    #navbar{
+        padding: 1rem 1rem;
+        margin: 0px 10px;
+    }
+    #navbar h2 {
+        font-size: small;
+    }
+}

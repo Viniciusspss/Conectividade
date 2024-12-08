@@ -164,15 +164,46 @@ hr:first-of-type {
 }
 
 @media (max-width: 768px) {
+    #text-map{
+        padding: 1rem 1rem;
+        padding-top: 5rem;
+    }
+    
+    #Date-hour{
+        font-size: small;
+        color: #555;
+    }
+    
+    #title{
+        font-size: larger   ;
+        text-align: center;
+        padding-bottom: 2rem;
+    }
+
     .leaflet-container {
-        max-width: 80%; 
+        max-width: 90%; 
         height: auto; 
     }
 }
 
 @media (max-width: 480px) {
+    #text-map{
+        padding: 1rem 1rem;
+        padding-top: 5rem;
+    }
+    
+    #Date-hour{
+        font-size: small;
+        color: #555;
+    }
+    
+    #title{
+        font-size: larger   ;
+        text-align: center;
+        padding-bottom: 2rem;
+    }
     .leaflet-container {
-        max-width: 70%; 
+        max-width: 90%; 
         height: 300px; 
     }
 }

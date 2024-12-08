@@ -4,9 +4,9 @@ const Content = () => {
   return (
     <div id="content-container">
       <div id="content">
-        <h1>A Importância da Conectividade na Sociedade e os Desafios na Paraíba</h1>
+        <h1>A importância da conectividade na sociedade e os desafios na Paraíba</h1>
 
-        <p>
+        <p id="text">
           A conectividade é a capacidade de estabelecer uma conexão entre
           diferentes sistemas, dispositivos, redes ou pessoas, por meio de
           internet. Ela facilita o acesso a dados, comunicação e interação em
