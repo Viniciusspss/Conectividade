@@ -168,7 +168,7 @@ const MapComponent = () => {
   return (
     <div>
       <div id="text-map">
-        <h1 id="title">Mapa de Cidades e seus Níveis de Conectividade</h1>
+        <h1 id="title">Mapa de cidades e seus níveis de conectividade</h1>
         <hr />
         <p id="Date-hour">publicado: data e hora, ultima modificação: data e hora da modificação</p>
         <hr />
@@ -184,7 +184,7 @@ const MapComponent = () => {
           attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>"
         />
         <GeoJSON data={mergedGeoData} style={style} onEachFeature={onEachFeature} />
-        <Legend /> {/* Componente para a legenda */}
+        <Legend /> {}
       </MapContainer>
     </div>
   );
